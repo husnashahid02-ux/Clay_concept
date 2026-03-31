@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clay — A Product Thinker's Case Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&family=DM+Mono&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0d0d0d;
+    --off-white: #f7f5f0;
+    --muted: #8a8680;
+    --clay-orange: #e8622a;
+    --clay-light: #fdf0ea;
+    --border: rgba(13,13,13,0.1);
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+    --mono: 'DM Mono', monospace;
+  }
+
+  body {
+    background: var(--off-white);
+    color: var(--black);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 80px 40px 120px;
+  }
+
+  /* ── Header ── */
+  .header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 80px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .header-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .header-name {
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--black);
+  }
+
+  .clay-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--black);
+    color: var(--off-white);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    padding: 6px 14px;
+    border-radius: 100px;
+  }
+
+  .clay-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--clay-orange);
+    display: inline-block;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    margin-bottom: 72px;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--clay-orange);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(38px, 6vw, 58px);
+    line-height: 1.1;
+    font-weight: 400;
+    color: var(--black);
+    margin-bottom: 28px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--clay-orange);
+  }
+
+  .hero-sub {
+    font-size: 17px;
+    color: var(--muted);
+    max-width: 560px;
+    line-height: 1.65;
+    font-weight: 300;
+  }
+
+  /* ── Divider ── */
+  .divider {
+    width: 40px;
+    height: 1px;
+    background: var(--clay-orange);
+    margin: 56px 0;
+  }
+
+  /* ── Section ── */
+  .section {
+    margin-bottom: 64px;
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .section h2 {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--black);
+    margin-bottom: 16px;
+    line-height: 1.25;
+  }
+
+  .section p {
+    font-size: 15.5px;
+    color: #3a3835;
+    line-height: 1.75;
+    margin-bottom: 16px;
+  }
+
+  .section p:last-child { margin-bottom: 0; }
+
+  /* ── Pull quote ── */
+  .pullquote {
+    border-left: 3px solid var(--clay-orange);
+    padding: 20px 28px;
+    margin: 36px 0;
+    background: var(--clay-light);
+    border-radius: 0 8px 8px 0;
+  }
+
+  .pullquote p {
+    font-family: var(--serif);
+    font-size: 19px;
+    font-style: italic;
+    line-height: 1.55;
+    color: var(--black);
+    margin: 0;
+  }
+
+  /* ── Workflow ── */
+  .workflow {
+    margin: 36px 0;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    background: white;
+  }
+
+  .workflow-header {
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .workflow-header span {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .workflow-steps {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .step {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .step:last-child { border-bottom: none; }
+
+  .step-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--black);
+    color: var(--off-white);
+    font-family: var(--mono);
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .step-content {
+    flex: 1;
+  }
+
+  .step-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--black);
+    margin-bottom: 4px;
+  }
+
+  .step-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  .step-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    background: var(--clay-light);
+    color: var(--clay-orange);
+    padding: 3px 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(232,98,42,0.2);
+  }
+
+  /* ── Before/After ── */
+  .ba-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 32px 0;
+  }
+
+  @media (max-width: 540px) {
+    .ba-grid { grid-template-columns: 1fr; }
+  }
+
+  .ba-card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    background: white;
+  }
+
+  .ba-card.before {
+    border-top: 3px solid #d1cec9;
+  }
+
+  .ba-card.after {
+    border-top: 3px solid var(--clay-orange);
+  }
+
+  .ba-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  .ba-card.after .ba-label {
+    color: var(--clay-orange);
+  }
+
+  .ba-message {
+    font-size: 14px;
+    line-height: 1.65;
+    color: #3a3835;
+    font-style: italic;
+  }
+
+  /* ── Metrics ── */
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 36px 0;
+  }
+
+  @media (max-width: 480px) {
+    .metrics { grid-template-columns: 1fr 1fr; }
+  }
+
+  .metric {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .metric-num {
+    font-family: var(--serif);
+    font-size: 32px;
+    color: var(--clay-orange);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .metric-label {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  /* ── Closing ── */
+  .closing {
+    background: var(--black);
+    color: var(--off-white);
+    border-radius: 16px;
+    padding: 48px;
+    margin-top: 72px;
+  }
+
+  .closing h2 {
+    font-family: var(--serif);
+    font-size: 30px;
+    font-weight: 400;
+    margin-bottom: 16px;
+    line-height: 1.25;
+  }
+
+  .closing h2 em {
+    font-style: italic;
+    color: var(--clay-orange);
+  }
+
+  .closing p {
+    font-size: 15px;
+    color: rgba(247,245,240,0.65);
+    line-height: 1.75;
+    margin-bottom: 32px;
+  }
+
+  .closing-roles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+
+  .role-pill {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 6px 14px;
+    border-radius: 100px;
+    border: 1px solid rgba(247,245,240,0.2);
+    color: rgba(247,245,240,0.75);
+  }
+
+  .role-pill.highlight {
+    border-color: var(--clay-orange);
+    color: var(--clay-orange);
+  }
+
+  .closing-footer {
+    border-top: 1px solid rgba(247,245,240,0.1);
+    padding-top: 24px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: rgba(247,245,240,0.35);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── Dot row ── */
+  .dots {
+    display: flex;
+    gap: 6px;
+  }
+
+  .dots span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--muted);
+    opacity: 0.3;
+  }
+
+  .dots span:first-child { background: var(--clay-orange); opacity: 1; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-meta">
+      <span class="header-label">Product Thinking · March 2026</span>
+      <span class="header-name">A case study written for Clay</span>
+    </div>
+    <div class="clay-badge">
+      <span class="clay-dot"></span>
+      clay.com
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <div class="hero">
+    <p class="hero-eyebrow">Sales experience · Product thinking · Workflow obsession</p>
+    <h1>I lived the outbound problem.<br><em>Clay is what I wish existed.</em></h1>
+    <p class="hero-sub">This is not a cover letter. It's the honest story of a pain point I felt in sales — and how I'd think about solving it from inside Clay.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Section 1 -->
+  <div class="section">
+    <p class="section-label">01 — The problem I lived</p>
+    <h2>Outbound is broken by design — I know because I did it</h2>
+    <p>Before I moved into product, I worked in sales. And the single biggest frustration wasn't the rejection — it was how much time went into work that should have been automated. Manual research. Generic messaging. Fragmented tools that didn't talk to each other. Spreadsheets duct-taped to sequencers.</p>
+    <p>The high performers weren't working harder. They were pulling signals from places others didn't think to look — hiring pages, funding news, LinkedIn activity, job description language. That's not talent. That's a workflow gap that product should close.</p>
+
+    <div class="pullquote">
+      <p>"I didn't know what I needed then. Looking at Clay now, I do — this is exactly it."</p>
+    </div>
+
+    <p>I've since moved into product — working across logistics, SaaS, edtech, fintech, and now AI automation. But the sales pain never left me. If anything, being on the product side made it clearer how solvable it actually is.</p>
+  </div>
+
+  <!-- Section 2 -->
+  <div class="section">
+    <p class="section-label">02 — The Clay angle</p>
+    <h2>What Clay uniquely enables</h2>
+    <p>Clay collapses the research → enrich → score → message workflow into a single programmable surface. That's not incremental improvement — that's a category shift. The fact that it's built for operators who want to customize logic (not just toggle a setting) is exactly why it resonates with people who felt the problem most acutely.</p>
+    <p>What I find most compelling isn't the feature set — it's the philosophy. Clay bets that outbound quality is a <em>data architecture problem</em>, not a volume problem. That's the right bet. And it's one I now understand from both sides of the table.</p>
+  </div>
+
+  <!-- Section 3: The workflow -->
+  <div class="section">
+    <p class="section-label">03 — What I'd build</p>
+    <h2>A behavioral signal scoring workflow</h2>
+    <p>Here's a concrete workflow I'd architect using Clay — built around the signals I wish I had access to as a sales rep, structured the way I'd design it as a PM.</p>
+
+    <div class="workflow">
+      <div class="workflow-header">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <span>lead-scoring-workflow.clay</span>
+      </div>
+      <div class="workflow-steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-title">Ingest a company list</div>
+            <div class="step-desc">Pull from CRM export, LinkedIn search, or any CSV. Clay becomes the enrichment layer on top — not a replacement for your existing lists.</div>
+          </div>
+          <span class="step-tag">input</span>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-title">Enrich with behavioral signals</div>
+            <div class="step-desc">Funding recency, headcount growth, open roles in Sales/Ops, tech stack changes, LinkedIn activity from key decision-makers. Waterfall enrichment keeps cost low.</div>
+          </div>
+          <span class="step-tag">enrich</span>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-title">Score by intent tier</div>
+            <div class="step-desc">Formula-based scoring using weighted signals: Tier 1 (hiring + funded + tech-fit), Tier 2 (one strong signal), Tier 3 (cold). Reps only touch T1 and T2.</div>
+          </div>
+          <span class="step-tag">score</span>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="step-title">Generate context-aware messages</div>
+            <div class="step-desc">Use Clay's AI column to draft personalized first lines based on the top signal per account. Not a template — a starting point that's actually specific.</div>
+          </div>
+          <span class="step-tag">ai column</span>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <div class="step-title">Route to sequence</div>
+            <div class="step-desc">Push enriched, scored, and messaged leads directly to your sequencer (Outreach, Apollo, Salesloft). The rep reviews and sends — no more research tab-switching.</div>
+          </div>
+          <span class="step-tag">output</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 4: Before/After -->
+  <div class="section">
+    <p class="section-label">04 — The difference it makes</p>
+    <h2>What outreach looks like before and after</h2>
+    <p>The output isn't just efficiency — it's the quality of the first impression. Here's the same prospect, two realities:</p>
+
+    <div class="ba-grid">
+      <div class="ba-card before">
+        <p class="ba-label">Without Clay</p>
+        <p class="ba-message">"Hi Sarah, I came across your profile and thought we might have a great fit. Would love to connect and share how we've helped similar companies…"</p>
+      </div>
+      <div class="ba-card after">
+        <p class="ba-label">With Clay workflow</p>
+        <p class="ba-message">"Hi Sarah — noticed Acme just doubled the SDR team and shifted to Salesloft. Given that timing, thought this might actually be relevant right now…"</p>
+      </div>
+    </div>
+
+    <p>The second message doesn't require more effort from the rep. It requires better data architecture upstream — which is exactly what this workflow provides.</p>
+  </div>
+
+  <!-- Metrics -->
+  <div class="section">
+    <p class="section-label">05 — Why it works</p>
+    <h2>The hypothetical impact</h2>
+    <p>Based on what I've seen in sales orgs, better signal-based targeting consistently outperforms volume-based outreach:</p>
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-num">3×</div>
+        <div class="metric-label">reply rate lift from intent-based targeting</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num">60%</div>
+        <div class="metric-label">reduction in manual research time per rep</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num">T1 only</div>
+        <div class="metric-label">reps focus attention where it actually converts</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Closing -->
+  <div class="closing">
+    <h2>Why I want to build this<br><em>from inside Clay</em></h2>
+    <p>I started in sales and felt this problem every single day. I moved into product because I wanted to be on the side that builds the solution. Clay is the product I would have begged for as a sales rep — and now I have the product background to help build what comes next.</p>
+    <p>That's not a pitch. It's just genuinely why I'm here.</p>
+
+    <div class="closing-roles">
+      <span class="role-pill highlight">Product</span>
+      <span class="role-pill highlight">Growth</span>
+      <span class="role-pill highlight">GTM / ID</span>
+      <span class="role-pill">Sales background</span>
+      <span class="role-pill">PM experience</span>
+      <span class="role-pill">Workflow automation</span>
+    </div>
+
+    <div class="closing-footer">
+      Open to conversations → <a href="https://www.linkedin.com/in/husna-shahid/" style="color: var(--clay-orange); text-decoration: none;">linkedin.com/in/husna-shahid</a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
